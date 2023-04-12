@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class LayoutComponent {
   showFiller = false;
+  formVisible = false
+  listVisible = true
+
+  showList() : void {
+    this.listVisible = true
+    this.formVisible = false
+    
+  }
+
+  showForm() : void {
+    this.formVisible = true
+    this.listVisible = false
+  }
 }

@@ -1,4 +1,5 @@
-<form [formGroup]="formulario">
+<form [formGroup]="formulario" >
+    <h2>Registro de Alumnos</h2>
     <mat-form-field>
       <input matInput [formControl]="nameControl" placeholder="Nombre">
     </mat-form-field>
@@ -8,7 +9,7 @@
     <mat-form-field>
       <input matInput formControlName="email" placeholder="Correo electrónico">
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" >
         <mat-label>Elija un curso</mat-label>
         <mat-select [(value)]="selected" [formControl]="typeControl">
           <mat-option value="React">React</mat-option>

@@ -17,12 +17,12 @@
     
     <mat-drawer #drawer class="example-sidenav" mode="side">
       <mat-list role="list">
-        <mat-list-item role="listitem"><a href="">Listado de Alumnos</a></mat-list-item>
-        <mat-list-item role="listitem"><a href="">Ingresar alumno</a></mat-list-item>
+        <mat-list-item role="listitem" (click)="showList()">Listado de Alumnos</mat-list-item>
+        <mat-list-item role="listitem" (click)="showForm()">Ingresar alumno</mat-list-item>
       </mat-list>
     </mat-drawer>
     <main>
-      <app-alumno-form></app-alumno-form>
+      <app-alumno-form *ngIf="formVisible === true"></app-alumno-form>
     </main>
   
 </mat-drawer-container>

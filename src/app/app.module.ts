@@ -9,6 +9,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { LayoutComponent } from './components/layout/layout.component';
+import { MatListModule } from '@angular/material/list';
+import { AlumnoFormComponent } from './components/alumno-form/alumno-form.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -17,6 +24,7 @@ import { LayoutComponent } from './components/layout/layout.component';
   declarations: [
     AppComponent,
     LayoutComponent,
+    AlumnoFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +32,14 @@ import { LayoutComponent } from './components/layout/layout.component';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    FormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

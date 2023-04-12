@@ -1,0 +1,23 @@
+<form [formGroup]="formulario">
+    <mat-form-field>
+      <input matInput [formControl]="nameControl" placeholder="Nombre">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="apellido" placeholder="Apellido">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="email" placeholder="Correo electrónico">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Elija un curso</mat-label>
+        <mat-select [(value)]="selected" [formControl]="typeControl">
+          <mat-option value="React">React</mat-option>
+          <mat-option value="Angular">Angular</mat-option>
+          <mat-option value="VueJS">VueJS</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      
+    <button mat-raised-button (click)="enviar()">Enviar</button>
+  </form>
+  

@@ -4,10 +4,10 @@
       <input matInput [formControl]="nameControl" placeholder="Nombre">
     </mat-form-field>
     <mat-form-field>
-      <input matInput formControlName="apellido" placeholder="Apellido">
+      <input matInput [formControl]="lastNameControl" placeholder="Apellido">
     </mat-form-field>
     <mat-form-field>
-      <input matInput formControlName="email" placeholder="Correo electrónico">
+      <input matInput [formControl]="emailControl" placeholder="Correo electrónico">
     </mat-form-field>
     <mat-form-field appearance="fill" >
         <mat-label>Elija un curso</mat-label>
@@ -19,6 +19,6 @@
       </mat-form-field>
       
       
-    <button mat-raised-button (click)="enviar()">Enviar</button>
+    <button mat-raised-button (click)="sendForm()">Enviar</button>
   </form>
   

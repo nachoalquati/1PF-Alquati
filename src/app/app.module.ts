@@ -16,6 +16,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
+import { AlumnoListComponent } from './components/alumno-list/alumno-list.component';
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -25,6 +27,7 @@ import { MatInputModule } from '@angular/material/input';
     AppComponent,
     LayoutComponent,
     AlumnoFormComponent,
+    AlumnoListComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatRadioModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

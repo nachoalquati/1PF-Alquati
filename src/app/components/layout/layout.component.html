@@ -22,7 +22,7 @@
       </mat-list>
     </mat-drawer>
     <main>
-      <app-alumno-form *ngIf="formVisible === true"></app-alumno-form>
+      <app-alumno-form (formEmitter)="handleData($event)" *ngIf="formVisible === true"></app-alumno-form>
+      <app-alumno-list [listadoAlumnos]="list" (idToDelete)="deleteById($event)" *ngIf="listVisible === true"></app-alumno-list>
     </main>
-  
 </mat-drawer-container>

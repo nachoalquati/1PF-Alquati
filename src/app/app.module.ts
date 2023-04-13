@@ -18,6 +18,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { AlumnoListComponent } from './components/alumno-list/alumno-list.component';
 import { MatTableModule } from '@angular/material/table';
+import { ApellidoPipe } from './apellido.pipe';
 
 
 
@@ -28,6 +29,7 @@ import { MatTableModule } from '@angular/material/table';
     LayoutComponent,
     AlumnoFormComponent,
     AlumnoListComponent,
+    ApellidoPipe,
   ],
   imports: [
     BrowserModule,

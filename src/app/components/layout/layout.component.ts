@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataToEditService } from 'src/app/services/data-to-edit.service';
 
 export interface Alumnos {
   id: number
@@ -19,6 +20,9 @@ let ELEMENT_DATA: Alumnos[] = [
 })
 
 export class LayoutComponent {
+
+  constructor(private editService:DataToEditService) { }
+
   list = ELEMENT_DATA
   showFiller = false;
   formVisible = false
@@ -33,14 +37,27 @@ export class LayoutComponent {
   showForm() : void {
     this.formVisible = true
     this.listVisible = false
+    this.editService.setAlumno(null)
   }
 
   handleData(data:any){
+    let foundUser = ELEMENT_DATA.find(elemt=> elemt.id === data.id)
     this.formVisible = false
     this.listVisible = true
-    ELEMENT_DATA = [...ELEMENT_DATA, {...data, id:Date.now().toString(36) + Math.random().toString(36).substr(2, 5)}]
-    this.list = ELEMENT_DATA
-    console.log(ELEMENT_DATA);
+
+    if (foundUser){
+      ELEMENT_DATA = ELEMENT_DATA.map(elemt=>{
+        if (elemt.id === data.id){
+          return elemt = data
+        }
+      } )
+      this.list = ELEMENT_DATA
+    }
+    else{
+      ELEMENT_DATA = [...ELEMENT_DATA, {...data}]
+      this.list = ELEMENT_DATA
+    }
+    
   }
 
   deleteById(incomingId:number){
@@ -50,6 +67,12 @@ export class LayoutComponent {
     ELEMENT_DATA = newArray
     this.list = ELEMENT_DATA
   }
-  
+
+  editById(incomingId:number){
+    this.showForm()
+    console.log(incomingId);
+    let alumnoToEdit = ELEMENT_DATA.find(elemt=> elemt.id === incomingId)
+    this.editService.setAlumno(alumnoToEdit)
+  }
 
 }

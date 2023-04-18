@@ -1,16 +1,20 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { DataToEditService } from 'src/app/services/data-to-edit.service';
+import { Alumnos } from '../layout/layout.component';
 
 @Component({
   selector: 'app-alumno-form',
   templateUrl: './alumno-form.component.html',
   styleUrls: ['./alumno-form.component.css']
 })
-export class AlumnoFormComponent {
+export class AlumnoFormComponent implements OnInit {
 
+  
   @Output()
   formEmitter = new EventEmitter<FormGroup>();
-  
+
+  alumnoToEdit:any = null
   formulario: FormGroup;
   favoriteSeason: string = '';
   selected: string = ''
@@ -30,14 +34,39 @@ export class AlumnoFormComponent {
     '',
     [Validators.required, Validators.email]
   )
+  idControl = new FormControl(
+    this.generateId(this.alumnoToEdit),
+    []
+  )
 
-  constructor(private formBuilder: FormBuilder) {
+  generateId(alumno:any){
+    if(alumno){
+      return alumno.id
+    }
+    return Math.round(Date.now()) + Math.random()
+  }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private editService: DataToEditService
+    ) {
     this.formulario = this.formBuilder.group({
       nombre: this.nameControl ,
       apellido: this.lastNameControl,
       email: this.emailControl,
-      tipoCurso: this.typeControl
-    });
+      curso: this.typeControl,
+      id: this.idControl
+    },
+    );
+  }
+  ngOnInit(): void {
+    this.alumnoToEdit = this.editService.getAlumno();
+    if(this.alumnoToEdit){
+      this.idControl.setValue(this.alumnoToEdit.id)
+    }else{
+      console.log('No hay alumno para editar');
+    }
+    
   }
 
   
@@ -47,6 +76,7 @@ export class AlumnoFormComponent {
 
   sendForm() {
     if(this.nameControl.valid && this.typeControl.valid && this.emailControl.valid && this.lastNameControl.valid ){
+      console.log(this.formulario.value);
       this.formEmitter.emit(this.formulario.value);
     }
     else{

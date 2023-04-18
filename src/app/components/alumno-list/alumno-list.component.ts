@@ -16,7 +16,8 @@ export class AlumnoListComponent implements OnInit, OnChanges {
   listadoAlumnos: Alumnos[]
   @Output()
   idToDelete = new EventEmitter<number>();
-
+  @Output()
+  idToEdit = new EventEmitter<number>();
 
   constructor() {
     this.listadoAlumnos = [];
@@ -27,12 +28,16 @@ export class AlumnoListComponent implements OnInit, OnChanges {
     this.idToDelete.emit(id)
   }
 
+  editById(id:number){
+    this.idToEdit.emit(id)
+  }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     this.dataSource = this.listadoAlumnos
   }
 
-  displayedColumns: string[] = ['Numero', 'Nombre', 'Curso', 'Email', 'Eliminar'];
+  displayedColumns: string[] = ['Nombre', 'Curso', 'Email', 'Eliminar', 'Editar'];
   dataSource: Alumnos[] = []
   
  

@@ -38,16 +38,17 @@ export class LayoutComponent {
   handleData(data:any){
     this.formVisible = false
     this.listVisible = true
-    ELEMENT_DATA = [...ELEMENT_DATA, {...data, id:ELEMENT_DATA.length + 1}]
+    ELEMENT_DATA = [...ELEMENT_DATA, {...data, id:Date.now().toString(36) + Math.random().toString(36).substr(2, 5)}]
     this.list = ELEMENT_DATA
     console.log(ELEMENT_DATA);
   }
 
   deleteById(incomingId:number){
     
-    let newArray =  ELEMENT_DATA.filter(elemt=> elemt.id != incomingId)
+    let newArray =  ELEMENT_DATA.filter(elemt=> elemt.id !== incomingId)
     
-    this.list = newArray
+    ELEMENT_DATA = newArray
+    this.list = ELEMENT_DATA
   }
   
 

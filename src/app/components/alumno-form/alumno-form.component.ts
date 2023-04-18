@@ -41,6 +41,9 @@ export class AlumnoFormComponent {
   }
 
   
+  
+
+  
 
   sendForm() {
     if(this.nameControl.valid && this.typeControl.valid && this.emailControl.valid && this.lastNameControl.valid ){

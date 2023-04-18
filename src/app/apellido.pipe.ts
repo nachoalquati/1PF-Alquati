@@ -10,4 +10,4 @@ export class ApellidoPipe implements PipeTransform {
     return value.nombre + ' ' + value.apellido;
   }
 
-}
+} 

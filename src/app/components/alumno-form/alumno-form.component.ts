@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Inject, Input, Output, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { DataToEditService } from 'src/app/services/data-to-edit.service';
+import { DataToEditService } from 'src/app/services/dataToEdit/data-to-edit.service';
 import { Alumnos } from '../layout/layout.component';
+import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
 
 @Component({
   selector: 'app-alumno-form',
@@ -13,6 +14,7 @@ export class AlumnoFormComponent implements OnInit {
   
   @Output()
   formEmitter = new EventEmitter<FormGroup>();
+
 
   alumnoToEdit:any = null
   formulario: FormGroup;
@@ -48,7 +50,8 @@ export class AlumnoFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private editService: DataToEditService
+    private editService: DataToEditService,
+    private alumnosList: AlumnosListService
     ) {
     this.formulario = this.formBuilder.group({
       nombre: this.nameControl ,
@@ -59,10 +62,15 @@ export class AlumnoFormComponent implements OnInit {
     },
     );
   }
-  ngOnInit(): void {
+  async ngOnInit() {
     this.alumnoToEdit = this.editService.getAlumno();
+    let alumno
     if(this.alumnoToEdit){
       this.idControl.setValue(this.alumnoToEdit.id)
+      this.nameControl.setValue(this.alumnoToEdit.nombre)
+      this.lastNameControl.setValue(this.alumnoToEdit.apellido)
+      this.emailControl.setValue(this.alumnoToEdit.email)
+      this.typeControl.setValue(this.alumnoToEdit.curso)
     }else{
       console.log('No hay alumno para editar');
     }

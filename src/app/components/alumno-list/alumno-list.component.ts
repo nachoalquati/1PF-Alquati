@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter  } from '@angular/core';
 import { Alumnos } from '../layout/layout.component';
+import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
 
 
 
@@ -12,20 +13,24 @@ import { Alumnos } from '../layout/layout.component';
 })
 
 export class AlumnoListComponent implements OnInit, OnChanges {
-  @Input()
-  listadoAlumnos: Alumnos[]
+
   @Output()
   idToDelete = new EventEmitter<number>();
   @Output()
   idToEdit = new EventEmitter<number>();
 
-  constructor() {
-    this.listadoAlumnos = [];
+
+  listadoAlumnos:Alumnos[] = []
+  constructor(
+    private alumnosList: AlumnosListService,
+    ) {
   }
 
 
-  deleteById(id:number){
+  async deleteById(id:number){
     this.idToDelete.emit(id)
+    let alumnos = await this.alumnosList.getAlumnos()
+    this.dataSource = alumnos
   }
 
   editById(id:number){
@@ -33,8 +38,9 @@ export class AlumnoListComponent implements OnInit, OnChanges {
   }
 
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.dataSource = this.listadoAlumnos
+  async ngOnChanges(changes: SimpleChanges) {
+    let alumnos = await this.alumnosList.getAlumnos()
+    this.dataSource = alumnos
   }
 
   displayedColumns: string[] = ['Nombre', 'Curso', 'Email', 'Eliminar', 'Editar'];
@@ -42,8 +48,10 @@ export class AlumnoListComponent implements OnInit, OnChanges {
   
  
 
-  ngOnInit(): void {
-    this.dataSource = this.listadoAlumnos;
+  async ngOnInit() {
+    let alumnos = await this.alumnosList.getAlumnos()
+    this.dataSource = alumnos;
+    console.log(await this.alumnosList.getAlumnos());
   }
 
 }

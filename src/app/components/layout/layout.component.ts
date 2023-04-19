@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { DataToEditService } from 'src/app/services/data-to-edit.service';
+import { Component, OnInit } from '@angular/core';
+import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
+import { DataToEditService } from 'src/app/services/dataToEdit/data-to-edit.service';
 
 export interface Alumnos {
   id: number
@@ -9,9 +10,6 @@ export interface Alumnos {
   curso: string;
 }
 
-let ELEMENT_DATA: Alumnos[] = [
-  {id: 1, nombre: 'Ignacio', apellido:'Alquati' , curso: 'Angular', email:'nacho@coder.com'},
-];
 
 @Component({
   selector: 'app-layout',
@@ -19,11 +17,17 @@ let ELEMENT_DATA: Alumnos[] = [
   styleUrls: ['./layout.component.css']
 })
 
-export class LayoutComponent {
+export class LayoutComponent implements OnInit {
 
-  constructor(private editService:DataToEditService) { }
+  constructor(
+    private editService:DataToEditService,
+    private alumnosList: AlumnosListService
+    ) { }
+  async ngOnInit(): Promise<void> {
+    this.list = await this.alumnosList.getAlumnos()
+  }
 
-  list = ELEMENT_DATA
+  public list:Alumnos[] = []
   showFiller = false;
   formVisible = false
   listVisible = true
@@ -40,39 +44,41 @@ export class LayoutComponent {
     this.editService.setAlumno(null)
   }
 
-  handleData(data:any){
-    let foundUser = ELEMENT_DATA.find(elemt=> elemt.id === data.id)
+  async handleData(data:any){
+    let array = await  this.alumnosList.getAlumnos()
+    let foundUser =  array.find(elemt=> elemt.id === data.id)
     this.formVisible = false
     this.listVisible = true
 
     if (foundUser){
-      ELEMENT_DATA = ELEMENT_DATA.map(elemt=>{
+      let array = await this.alumnosList.getAlumnos()
+      let newArray = array.map(elemt=>{
         if (elemt.id === data.id){
           return elemt = data
         }
       } )
-      this.list = ELEMENT_DATA
+      this.alumnosList.setAlumnos(newArray)
+      let alumnoss = await this.alumnosList.getAlumnos() 
+      this.list = alumnoss
     }
     else{
-      ELEMENT_DATA = [...ELEMENT_DATA, {...data}]
-      this.list = ELEMENT_DATA
+      this.alumnosList.addAlumno(data)
+      let alumnoss = await this.alumnosList.getAlumnos() 
+      this.list = alumnoss
     }
     
   }
 
-  deleteById(incomingId:number){
+  async deleteById(incomingId:number){
     
-    let newArray =  ELEMENT_DATA.filter(elemt=> elemt.id !== incomingId)
-    
-    ELEMENT_DATA = newArray
-    this.list = ELEMENT_DATA
+    this.alumnosList.deleteAlumno(incomingId)
+    let alumnos = await this.alumnosList.getAlumnos()
+    this.list = alumnos
   }
 
   editById(incomingId:number){
     this.showForm()
-    console.log(incomingId);
-    let alumnoToEdit = ELEMENT_DATA.find(elemt=> elemt.id === incomingId)
-    this.editService.setAlumno(alumnoToEdit)
+    this.alumnosList.editAlumnos(incomingId)
   }
 
 }

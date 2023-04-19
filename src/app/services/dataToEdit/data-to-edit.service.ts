@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Alumnos } from '../components/layout/layout.component';
+import { Alumnos } from '../../components/layout/layout.component';
 
 @Injectable({
   providedIn: 'root'

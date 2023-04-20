@@ -12,8 +12,8 @@
   </mat-card>
 
 
-  <mat-card *ngIf="!loading && !foundData">
-    <mat-card-content>No se encontraron alumnos<mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="alert"></mat-icon></mat-card-content>
+  <mat-card *ngIf="!loading && !foundData" class="d-flex justify-content-center align-items-center mt-5">
+    <mat-card-content>No se encontraron alumnos</mat-card-content>
   </mat-card>
   
   <div class="d-flex justify-content-center align-items-center mt-5" *ngIf="loading">

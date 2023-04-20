@@ -1,0 +1,24 @@
+<mat-card class="example-card" *ngIf="alumnos$">
+    <mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-title>{{(alumnos$ | async)?.nombre }} {{(alumnos$ | async)?.apellido }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{(alumnos$ | async)?.curso}}</p>
+      <mat-divider></mat-divider>
+      <mat-card-subtitle>{{(alumnos$ | async)?.email}}</mat-card-subtitle>
+    </mat-card-content>
+
+  </mat-card>
+
+
+  <mat-card *ngIf="!loading && !foundData">
+    <mat-card-content>No se encontraron alumnos<mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="alert"></mat-icon></mat-card-content>
+  </mat-card>
+  
+  <div class="d-flex justify-content-center align-items-center mt-5" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+  

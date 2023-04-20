@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataToEditService } from '../dataToEdit/data-to-edit.service';
-
+import { Observable } from 'rxjs';
 
 export interface Alumnos {
   id: number
@@ -11,7 +11,7 @@ export interface Alumnos {
 }
 
 let ELEMENT_DATA: Alumnos[] = [
-  {id: 1, nombre: 'Ignacio', apellido:'Alquati' , curso: 'Angular', email:'nacho@coder.com'},
+  {id: 1, nombre: "Ignacio", apellido:"Alquati" , curso: "Angular", email:"nacho@coder.com"},
 ];
 
 @Injectable({
@@ -28,6 +28,14 @@ export class AlumnosListService {
     return await ELEMENT_DATA
   }
 
+  getData(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(ELEMENT_DATA);
+      }, 2000); 
+    });
+  }
+  
   setAlumnos(alumnosArray:Alumnos[]){
     ELEMENT_DATA = alumnosArray
   }
@@ -52,5 +60,19 @@ export class AlumnosListService {
 
   getAlumnoById(incomingId:number){
     let alumno = ELEMENT_DATA.find(elemt=>{return elemt.id === incomingId})
+  }
+  getDataByName(incomingName:string): Observable<any> {
+    
+    return new Observable(observer => {
+      setTimeout(() => {
+        let alumno:Alumnos | undefined = ELEMENT_DATA.find(elemt=>{      
+
+           return elemt.nombre === incomingName
+        })
+        
+        observer.next(alumno);
+        observer.complete();
+      }, 2000);
+    });
   }
 }

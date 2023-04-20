@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
 import { DataToEditService } from 'src/app/services/dataToEdit/data-to-edit.service';
 
@@ -18,29 +19,56 @@ export interface Alumnos {
 })
 
 export class LayoutComponent implements OnInit {
-
-  constructor(
-    private editService:DataToEditService,
-    private alumnosList: AlumnosListService
-    ) { }
-  async ngOnInit(): Promise<void> {
-    this.list = await this.alumnosList.getAlumnos()
-  }
-
+  searchString:string = ''
+  searchForm: FormGroup;
   public list:Alumnos[] = []
   showFiller = false;
   formVisible = false
   listVisible = true
+  searchAlumnoVisible = false
+  searchControl = new FormControl(
+    '',
+    []
+  )
+
+  constructor(
+    private editService:DataToEditService,
+    private alumnosList: AlumnosListService,
+    private formBuilder: FormBuilder,
+    ) {
+      this.searchForm = this.formBuilder.group({
+      searchByName: this.searchControl ,
+    },
+    );
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.list = await this.alumnosList.getAlumnos()
+
+
+
+  }
+
+  
+
 
   showList() : void {
     this.listVisible = true
     this.formVisible = false
-    
+    this.searchAlumnoVisible = false
   }
 
   showForm() : void {
     this.formVisible = true
     this.listVisible = false
+    this.searchAlumnoVisible = false
+    this.editService.setAlumno(null)
+  }
+
+  showSearched() : void {
+    this.formVisible = false
+    this.listVisible = false
+    this.searchAlumnoVisible = true
     this.editService.setAlumno(null)
   }
 
@@ -80,5 +108,10 @@ export class LayoutComponent implements OnInit {
     this.showForm()
     this.alumnosList.editAlumnos(incomingId)
   }
-
+  
+  searchAlumno(){
+    this.showSearched()
+    console.log('searchstring en form', this.searchControl.value);
+    this.searchString = this.searchControl.value || ''
+  }
 }

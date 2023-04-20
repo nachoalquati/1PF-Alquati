@@ -19,7 +19,9 @@ import { MatInputModule } from '@angular/material/input';
 import { AlumnoListComponent } from './components/alumno-list/alumno-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { ApellidoPipe } from './apellido.pipe';
-
+import { SearchAlumnoComponent } from './components/search-alumno/search-alumno.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -30,6 +32,7 @@ import { ApellidoPipe } from './apellido.pipe';
     AlumnoFormComponent,
     AlumnoListComponent,
     ApellidoPipe,
+    SearchAlumnoComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { ApellidoPipe } from './apellido.pipe';
     MatRadioModule,
     FormsModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

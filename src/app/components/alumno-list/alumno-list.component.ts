@@ -19,6 +19,7 @@ export class AlumnoListComponent implements OnInit, OnChanges {
   @Output()
   idToEdit = new EventEmitter<number>();
 
+  loading:boolean = true
 
   listadoAlumnos:Alumnos[] = []
   constructor(
@@ -40,6 +41,7 @@ export class AlumnoListComponent implements OnInit, OnChanges {
 
   async ngOnChanges(changes: SimpleChanges) {
     let alumnos = await this.alumnosList.getAlumnos()
+    this.loading = false
     this.dataSource = alumnos
   }
 
@@ -49,9 +51,10 @@ export class AlumnoListComponent implements OnInit, OnChanges {
  
 
   async ngOnInit() {
-    let alumnos = await this.alumnosList.getAlumnos()
+    let alumnos = await this.alumnosList.getData()
     this.dataSource = alumnos;
-    console.log(await this.alumnosList.getAlumnos());
+    this.loading = false
+    
   }
 
 }

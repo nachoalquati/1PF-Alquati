@@ -1,16 +1,20 @@
 
-<mat-toolbar>
+<mat-toolbar class="justify-content-between">
     <button mat-icon-button class="example-icon" (click)="drawer.toggle()" aria-label="Example icon-button with menu icon">
      <mat-icon>menu</mat-icon>
    </button>
    <span>PF Alquati</span>
    <span class="example-spacer"></span>
-   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-     <mat-icon>favorite</mat-icon>
+   <form class="example-form" style="margin-top: 15px;">
+    <mat-form-field class="example-full-width">
+      <mat-label >Buscar Alumno</mat-label>
+      <input [formControl]="searchControl"  matInput>
+    </mat-form-field>
+    <button mat-icon-button class="example-icon favorite-icon" type="submit" (click)="searchAlumno()">
+      <mat-icon>search</mat-icon>
    </button>
-   <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
+  </form>
+
  </mat-toolbar>
 
 <mat-drawer-container class="example-container" autosize>
@@ -24,5 +28,6 @@
     <main>
       <app-alumno-form  (formEmitter)="handleData($event)" *ngIf="formVisible === true"></app-alumno-form>
       <app-alumno-list  (idToDelete)="deleteById($event)"  (idToEdit)="editById($event)" *ngIf="listVisible === true"></app-alumno-list>
+      <app-search-alumno [searchString]="searchString"  *ngIf="searchAlumnoVisible === true" ></app-search-alumno>
     </main>
 </mat-drawer-container>

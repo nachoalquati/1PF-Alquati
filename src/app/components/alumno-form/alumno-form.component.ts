@@ -4,6 +4,7 @@ import { DataToEditService } from 'src/app/services/dataToEdit/data-to-edit.serv
 import { Alumnos } from '../layout/layout.component';
 import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
 
+
 @Component({
   selector: 'app-alumno-form',
   templateUrl: './alumno-form.component.html',
@@ -11,7 +12,6 @@ import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.se
 })
 export class AlumnoFormComponent implements OnInit {
 
-  
   @Output()
   formEmitter = new EventEmitter<FormGroup>();
 
@@ -40,6 +40,8 @@ export class AlumnoFormComponent implements OnInit {
     this.generateId(this.alumnoToEdit),
     []
   )
+  alumnosService: any;
+  alumnos: any;
 
   generateId(alumno:any){
     if(alumno){
@@ -63,8 +65,8 @@ export class AlumnoFormComponent implements OnInit {
     );
   }
   async ngOnInit() {
+
     this.alumnoToEdit = this.editService.getAlumno();
-    let alumno
     if(this.alumnoToEdit){
       this.idControl.setValue(this.alumnoToEdit.id)
       this.nameControl.setValue(this.alumnoToEdit.nombre)

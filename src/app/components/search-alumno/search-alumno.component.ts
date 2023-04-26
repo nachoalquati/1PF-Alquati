@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit, ApplicationRef, ViewContainerRef, 
 import { Observable, Subscription, EMPTY } from 'rxjs';
 import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
 import { Alumnos } from '../layout/layout.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-alumno',
@@ -16,16 +17,24 @@ export class SearchAlumnoComponent implements OnInit, OnChanges, OnDestroy {
   alumnosSubscription: Subscription | undefined;
   loading: boolean = true
   foundData: boolean = false
+  query: string | null = ''
 
-  constructor(private alumnosService: AlumnosListService, private appRef: ApplicationRef, private viewContainerRef: ViewContainerRef) {}
+  constructor(
+    private alumnosService: AlumnosListService,
+     private appRef: ApplicationRef,
+      private viewContainerRef: ViewContainerRef,
+      private route: ActivatedRoute
+      ) {}
  
 
   async ngOnInit() {
+    this.query = this.route.snapshot.paramMap.get('query');
+    console.log('query= ', this.query);
     
-    if (this.searchString) {
+    if (this.query) {
       
-      this.alumnos$ = this.alumnosService.getDataByName(this.searchString);
-      this.alumnosSubscription = this.alumnosService.getDataByName(this.searchString).subscribe(
+      this.alumnos$ = this.alumnosService.getDataByName(this.query);
+      this.alumnosSubscription = this.alumnosService.getDataByName(this.query).subscribe(
         alumnos => {
           if(alumnos != undefined){
             this.loading = false
@@ -48,10 +57,11 @@ export class SearchAlumnoComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     this.loading = true
     this.foundData = false
-    if (this.searchString) {
+    this.query = this.route.snapshot.paramMap.get('query');
+    if (this.query) {
       
-      this.alumnos$ = this.alumnosService.getDataByName(this.searchString);
-      this.alumnosSubscription = this.alumnosService.getDataByName(this.searchString).subscribe(
+      this.alumnos$ = this.alumnosService.getDataByName(this.query);
+      this.alumnosSubscription = this.alumnosService.getDataByName(this.query).subscribe(
         alumnos => {
           // Asignar los datos recibidos a la propiedad alumnos
           if(alumnos != undefined){

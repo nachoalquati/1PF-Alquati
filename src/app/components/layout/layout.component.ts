@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
 import { DataToEditService } from 'src/app/services/dataToEdit/data-to-edit.service';
 
@@ -19,6 +20,7 @@ export interface Alumnos {
 })
 
 export class LayoutComponent implements OnInit {
+  query:string | null = ''
   searchString:string = ''
   searchForm: FormGroup;
   public list:Alumnos[] = []
@@ -35,6 +37,7 @@ export class LayoutComponent implements OnInit {
     private editService:DataToEditService,
     private alumnosList: AlumnosListService,
     private formBuilder: FormBuilder,
+    private router: Router,
     ) {
       this.searchForm = this.formBuilder.group({
       searchByName: this.searchControl ,
@@ -110,6 +113,8 @@ export class LayoutComponent implements OnInit {
   }
   
   searchAlumno(){
+    this.query = this.searchControl.value
+    this.router.navigate(['/search', this.query]);
     this.showSearched()
     console.log('searchstring en form', this.searchControl.value);
     this.searchString = this.searchControl.value || ''

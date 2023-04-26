@@ -21,8 +21,18 @@ import { MatTableModule } from '@angular/material/table';
 import { ApellidoPipe } from './apellido.pipe';
 import { SearchAlumnoComponent } from './components/search-alumno/search-alumno.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CoursesModule } from './courses/courses.module';
+import { RouterModule, Routes } from '@angular/router';
+import { CoursesComponent } from './courses/courses/courses.component';
+import { ListComponent } from './courses/list/list.component';
 
+const routes: Routes = [
+  { path: 'alumnos/list', component: AlumnoListComponent },
+  { path: 'courses/list', component: ListComponent },
+  { path: 'alumnos/form', component: AlumnoFormComponent },
+  { path: 'search/:query', component: SearchAlumnoComponent },
+
+];
 
 
 @NgModule({
@@ -49,7 +59,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormsModule,
     MatInputModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    CoursesModule,
+    [RouterModule.forRoot(routes)],
   ],
   providers: [],
   bootstrap: [AppComponent]

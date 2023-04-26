@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter  } from '@angular/core';
 import { Alumnos } from '../layout/layout.component';
 import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
+import { Router } from '@angular/router';
 
 
 
@@ -23,19 +24,22 @@ export class AlumnoListComponent implements OnInit, OnChanges {
 
   listadoAlumnos:Alumnos[] = []
   constructor(
+    private router: Router,
     private alumnosList: AlumnosListService,
     ) {
   }
 
 
   async deleteById(id:number){
-    this.idToDelete.emit(id)
+    this.alumnosList.deleteAlumno(id)
     let alumnos = await this.alumnosList.getAlumnos()
     this.dataSource = alumnos
   }
 
   editById(id:number){
     this.idToEdit.emit(id)
+    this.alumnosList.editAlumnos(id)
+    this.router.navigate(['/alumnos/form']);
   }
 
 

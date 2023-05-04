@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CoursesComponent } from './courses/courses.component';
 import { ListComponent } from './list/list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +21,6 @@ import { CoursesDetailDialogComponent } from './courses-detail-dialog/courses-de
 
 @NgModule({
   declarations: [
-    CoursesComponent,
     ListComponent,
     CoursesFormComponent,
     CoursesDetailDialogComponent
@@ -42,10 +40,7 @@ import { CoursesDetailDialogComponent } from './courses-detail-dialog/courses-de
     MatCardModule,
     HttpClientModule,
     MatMenuModule,
-    MatDatepickerModule,
+    MatDatepickerModule
   ],
-  exports:[
-    CoursesComponent
-  ]
 })
 export class CoursesModule { }

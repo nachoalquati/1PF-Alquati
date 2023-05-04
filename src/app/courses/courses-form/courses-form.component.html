@@ -12,17 +12,17 @@
     </mat-form-field>
   
     <mat-form-field appearance="fill">
-        <mat-label>Fecha de Finalización</mat-label>
+        <mat-label>Fecha de Inicio</mat-label>
         <input matInput [matDatepicker]="picker" [formControl]="fechaInicioControl">
-        <mat-hint>DD/MM/YYYY</mat-hint>
+
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   
     <mat-form-field appearance="fill">
-        <mat-label>Fecha de Inicio</mat-label>
+        <mat-label>Fecha de Finalización</mat-label>
         <input matInput [matDatepicker]="picker2" [formControl]="fechaFinalizacionControl">
-        <mat-hint>DD/MM/YYYY</mat-hint>
+
         <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>

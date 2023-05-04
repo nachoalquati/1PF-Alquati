@@ -1,4 +1,21 @@
-<div>
-    <h3>Curso</h3>
-    
+<div class="container-sm">
+    <h3 class="h3">{{fetchData.nombre}}</h3>
+    <div>
+        <p>Desde: <b>{{fetchData.inicio}}</b></p>
+        <p>Hasta: <b>{{fetchData.finalizacion}}</b></p>
+        <p>Precio: <b>$ {{fetchData.precio}}</b></p>
+    </div>
+    <h6 class="h5">Alumnos Inscriptos:</h6>
+    <mat-card class="example-card mt-3 mb-3" *ngFor="let alumno of dataSource">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{alumno.nombre}} {{alumno.apellido}}</mat-card-title>
+            <mat-card-subtitle>{{alumno.email}}</mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+        </mat-card-content>
+      </mat-card>
+      <p style="color:indianred" *ngIf="dataSource.length === 0">No hay alumnos inscriptos</p>
 </div>
+

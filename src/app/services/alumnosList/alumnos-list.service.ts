@@ -9,7 +9,7 @@ export interface Alumno {
   nombre: string;
   apellido: string;
   email: string;
-  cursoId: string | null;
+  cursoId: any | null;
 }
 
 
@@ -46,6 +46,10 @@ export class AlumnosListService {
   
 
   addAlumn(alumno:Alumno){
+    if(alumno.cursoId){
+      alumno.cursoId = parseInt(alumno.cursoId)
+    }
+    
     this.httpClient.post('http://localhost:3000/alumnos', alumno).subscribe(data=>{
       console.log(data);
     })
@@ -89,7 +93,6 @@ export class AlumnosListService {
     this.httpClient.get(`http://localhost:3000/alumnos?nombre=${incomingName}`).subscribe({
       next: (data)=>{
         this.alumnosByName$.next(data)
-        console.log(this.alumnosByName$.value);
         
       }
     })

@@ -1,0 +1,7 @@
+.example-container{
+display: flex;
+flex-direction: column;
+width: 60%;
+margin: auto;
+margin-top: 15px;
+}

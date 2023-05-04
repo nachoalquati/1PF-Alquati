@@ -90,6 +90,7 @@ export class AlumnoFormComponent implements OnInit {
   
 
   sendForm() {
+
     if(this.nameControl.valid && this.typeControl.valid && this.emailControl.valid && this.lastNameControl.valid ){
       this.formEmitter.emit(this.formulario.value);
       console.log('id to edit: ',this.idToEdit);
@@ -100,8 +101,6 @@ export class AlumnoFormComponent implements OnInit {
         this.editService.setAlumnId(null)
       }
       else{
-        console.log('entro en addAlumn');
-        
         this.alumnosList.addAlumn(this.formulario.value)
       }
       

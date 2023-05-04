@@ -62,7 +62,7 @@ constructor(
         next: (data)=>{
           setTimeout(() => {
             this.router.navigate(['courses/list'])
-          }, 250);
+          }, 450);
         }
       })
     }

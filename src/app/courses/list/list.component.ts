@@ -1,6 +1,8 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CoursesService, Curso } from 'src/app/services/courses/courses.service';
+import { CoursesDetailDialogComponent } from '../courses-detail-dialog/courses-detail-dialog.component';
 
 @Component({
   selector: 'app-list',
@@ -14,7 +16,7 @@ export class ListComponent implements OnInit, OnChanges{
   dataSource: Curso[] = [];
   loading:boolean = true
 
-  constructor(private coursesService: CoursesService, private router:Router) { }
+  constructor(private coursesService: CoursesService, private router:Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getCourses()
@@ -45,5 +47,16 @@ export class ListComponent implements OnInit, OnChanges{
   editCourse(id:number){
     this.router.navigate([`/courses/form/${id}`])
   }
+
+  openDialog(id:number): void {
+    const dialogRef = this.dialog.open(CoursesDetailDialogComponent, {
+      data: id,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
 
 }

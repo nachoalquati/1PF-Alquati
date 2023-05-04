@@ -1,0 +1,108 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Ignacio",
+      "last_name": "Alquati",
+      "email": "nacho@email.com",
+      "password": "123456",
+      "token": "askjhdaksjhkahj1234k1241k2h54g67k1",
+      "role": "admin"
+    }
+  ],
+  "alumnos": [
+    {
+      "nombre": "Ignacio",
+      "apellido": "Alquati",
+      "email": "nacho@coder.com",
+      "cursoId": null,
+      "id": 1
+    },
+    {
+      "nombre": "Juan",
+      "apellido": "Perez",
+      "email": "jperez@example.com",
+      "cursoId": "2",
+      "id": 2
+    },
+    {
+      "nombre": "Martin",
+      "apellido": "Gonzalez",
+      "email": "mgonzalez@example.com",
+      "cursoId": "1",
+      "id": 3
+    },
+    {
+      "nombre": "Juan",
+      "apellido": "Gonzalez",
+      "email": "mgonzalez@example.com",
+      "cursoId": null,
+      "id": 4
+    },
+    {
+      "nombre": "Jose",
+      "apellido": "Gonzalez",
+      "email": "mgonzalez@example.com",
+      "cursoId": "1",
+      "id": 6
+    },
+    {
+      "nombre": "Juana",
+      "apellido": "Ejemplo",
+      "email": "jejemplo@example.com",
+      "cursoId": "3",
+      "id": 7
+    }
+  ],
+  "cursos": [
+    {
+      "nombre": "Angular",
+      "precio": 34900,
+      "inicio": "2023-05-03T03:00:00.000Z",
+      "finalizacion": "2023-05-18T03:00:00.000Z",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Vue JS",
+      "inicio": "2023-05-03T03:00:00.000Z",
+      "finalizacion": "2023-05-18T03:00:00.000Z",
+      "precio": 27500
+    },
+    {
+      "id": 3,
+      "nombre": "React",
+      "inicio": "2023-05-03T03:00:00.000Z",
+      "finalizacion": "2023-05-18T03:00:00.000Z",
+      "precio": 37450
+    },
+    {
+      "nombre": "JavaScript",
+      "precio": "17800",
+      "inicio": "2023-05-03T03:00:00.000Z",
+      "finalizacion": "2023-05-18T03:00:00.000Z",
+      "id": 4
+    },
+    {
+      "nombre": "TypeScript",
+      "precio": "21999",
+      "inicio": "2023-05-24T03:00:00.000Z",
+      "finalizacion": "2023-07-26T03:00:00.000Z",
+      "id": 5
+    },
+    {
+      "nombre": "Python",
+      "precio": "16999",
+      "inicio": "2023-05-11T03:00:00.000Z",
+      "finalizacion": "2023-08-31T03:00:00.000Z",
+      "id": 6
+    },
+    {
+      "nombre": "DataAnalys",
+      "precio": "29999",
+      "inicio": "2023-05-27T03:00:00.000Z",
+      "finalizacion": "2023-08-25T03:00:00.000Z",
+      "id": 7
+    }
+  ]
+}

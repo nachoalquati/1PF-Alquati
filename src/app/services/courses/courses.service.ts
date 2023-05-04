@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface Curso {
   id: number
@@ -9,43 +10,67 @@ export interface Curso {
   precio: number;
 }
 
-let CURSOS: Curso[] = [
-  {
-    id:1,
-    nombre: 'Angular',
-    inicio: '04/05/2023',
-    finalizacion: '05/07/2023',
-    precio: 34900
-  },
-  {
-    id:2,
-    nombre: 'Vue JS',
-    inicio: '01/06/2023',
-    finalizacion: '4/09/2023',
-    precio: 27500
-  },
-  {
-    id:3,
-    nombre: 'React',
-    inicio: '17/05/2023',
-    finalizacion: '26/07/2023',
-    precio: 37450
-  }
-]
+export interface DeleteResponse {
+  success: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
 
-  constructor() { }
+  private cursos$ = new BehaviorSubject<Curso[] | any>([])
+  private response$ = new BehaviorSubject<any | null>(null)
+  private courseData$ = new BehaviorSubject<Curso| null | any>(null)
+  private newCourse$ = new BehaviorSubject<Object| null>(null)
+  private editedCourse$ = new BehaviorSubject<Object | null>(null)
+
+  constructor(private httpClient: HttpClient) { }
+
 
   getCourses(): Observable <Curso[]>{
-    return new Observable(observer => {
-      setTimeout(() => {
-        observer.next(CURSOS);
-        observer.complete();
-      }, 2000);
-    });
+    this.httpClient.get('http://localhost:3000/cursos').subscribe({
+      next: (cursos)=>{
+        this.cursos$.next(cursos)
+      }
+    })
+    return this.cursos$
   }
+
+  deleteCourse(id:number) {
+    this.httpClient.delete<DeleteResponse>(`http://localhost:3000/cursos/${id}`).subscribe({
+      next: (data)=>{
+        this.response$.next(data)
+      }
+    })
+    return this.response$
+  }
+
+  getCourseById(id:string | null){
+    this.httpClient.get(`http://localhost:3000/cursos/${id}`).subscribe({
+      next: (data)=>{
+        this.courseData$.next(data)
+      }
+    })
+    return this.courseData$
+  }
+
+  createCourse(curso:FormData){
+    this.httpClient.post(`http://localhost:3000/cursos`, curso).subscribe({
+      next: (data)=>{
+        this.newCourse$.next(data)
+      }
+    })
+    return this.newCourse$
+  }
+
+  editCourse(id:string, curso:FormData){
+    this.httpClient.put(`http://localhost:3000/cursos/${id}`, curso).subscribe({
+      next: (data)=>{
+        this.editedCourse$.next(data)
+      }
+    })
+    return this.editedCourse$
+  }
+
 }

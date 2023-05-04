@@ -1,0 +1,30 @@
+<div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre del curso</mat-label>
+      <input matInput placeholder="Angular" [formControl]="nombreControl" required>
+      <mat-error *ngIf="nombreControl.invalid">Debe ingresar un nombre</mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Precio del curso</mat-label>
+      <input matInput placeholder="$19999" [formControl]="precioControl" required>
+      <mat-error *ngIf="nombreControl.invalid">Debe ingresar un precio</mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+        <mat-label>Fecha de Finalización</mat-label>
+        <input matInput [matDatepicker]="picker" [formControl]="fechaInicioControl">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+        <mat-label>Fecha de Inicio</mat-label>
+        <input matInput [matDatepicker]="picker2" [formControl]="fechaFinalizacionControl">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+    <button mat-button (click)="onSubmit()" >Enviar</button>
+</div>

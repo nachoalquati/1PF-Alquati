@@ -23,12 +23,20 @@ import { SearchAlumnoComponent } from './components/search-alumno/search-alumno.
 import { MatCardModule } from '@angular/material/card';
 import { CoursesModule } from './courses/courses.module';
 import { RouterModule, Routes } from '@angular/router';
-import { CoursesComponent } from './courses/courses/courses.component';
 import { ListComponent } from './courses/list/list.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatMenuModule } from '@angular/material/menu';
+import { DetailDialogComponent } from './components/detail-dialog/detail-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CoursesFormComponent } from './courses/courses-form/courses-form.component';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 const routes: Routes = [
   { path: 'alumnos/list', component: AlumnoListComponent },
   { path: 'courses/list', component: ListComponent },
+  { path: 'courses/form/:id', component: CoursesFormComponent },
+  { path: 'courses/form', component: CoursesFormComponent },
   { path: 'alumnos/form', component: AlumnoFormComponent },
   { path: 'search/:query', component: SearchAlumnoComponent },
 
@@ -43,6 +51,7 @@ const routes: Routes = [
     AlumnoListComponent,
     ApellidoPipe,
     SearchAlumnoComponent,
+    DetailDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +70,10 @@ const routes: Routes = [
     MatTableModule,
     MatCardModule,
     CoursesModule,
+    HttpClientModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatNativeDateModule, 
     [RouterModule.forRoot(routes)],
   ],
   providers: [],

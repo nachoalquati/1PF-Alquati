@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { DataToEditService } from 'src/app/services/dataToEdit/data-to-edit.service';
 import { Alumnos } from '../layout/layout.component';
 import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class AlumnoFormComponent implements OnInit {
   @Output()
   formEmitter = new EventEmitter<FormGroup>();
 
-
+  idToEdit: number | null = null
   alumnoToEdit:any = null
   formulario: FormGroup;
   favoriteSeason: string = '';
@@ -36,43 +38,46 @@ export class AlumnoFormComponent implements OnInit {
     '',
     [Validators.required, Validators.email]
   )
-  idControl = new FormControl(
-    this.generateId(this.alumnoToEdit),
-    []
-  )
+
   alumnosService: any;
   alumnos: any;
 
-  generateId(alumno:any){
-    if(alumno){
-      return alumno.id
-    }
-    return Math.round(Date.now()) + Math.random()
-  }
 
   constructor(
     private formBuilder: FormBuilder,
     private editService: DataToEditService,
-    private alumnosList: AlumnosListService
+    private alumnosList: AlumnosListService,
+    private router: Router
     ) {
     this.formulario = this.formBuilder.group({
       nombre: this.nameControl ,
       apellido: this.lastNameControl,
       email: this.emailControl,
-      curso: this.typeControl,
-      id: this.idControl
+      cursoId: this.typeControl,
     },
     );
   }
   async ngOnInit() {
 
+    this.idToEdit = this.editService.getAlumnIdToEdit()
+    if(this.idToEdit){
+      this.alumnosList.getAlumnoById(this.idToEdit).subscribe(data=>{
+        this.nameControl.setValue(data.nombre)
+        this.lastNameControl.setValue(data.apellido)
+        this.emailControl.setValue(data.email)
+        this.typeControl.setValue(data.cursoId)
+      })
+
+    }
+    
     this.alumnoToEdit = this.editService.getAlumno();
+
+
     if(this.alumnoToEdit){
-      this.idControl.setValue(this.alumnoToEdit.id)
       this.nameControl.setValue(this.alumnoToEdit.nombre)
       this.lastNameControl.setValue(this.alumnoToEdit.apellido)
       this.emailControl.setValue(this.alumnoToEdit.email)
-      this.typeControl.setValue(this.alumnoToEdit.curso)
+      this.typeControl.setValue(this.alumnoToEdit.cursoId)
     }else{
       console.log('No hay alumno para editar');
     }
@@ -86,8 +91,21 @@ export class AlumnoFormComponent implements OnInit {
 
   sendForm() {
     if(this.nameControl.valid && this.typeControl.valid && this.emailControl.valid && this.lastNameControl.valid ){
-      console.log(this.formulario.value);
       this.formEmitter.emit(this.formulario.value);
+      console.log('id to edit: ',this.idToEdit);
+      
+      if(this.idToEdit){
+        console.log('entro en editAlumn');
+        this.alumnosList.editAlumnById(this.formulario.value, this.idToEdit)
+        this.editService.setAlumnId(null)
+      }
+      else{
+        console.log('entro en addAlumn');
+        
+        this.alumnosList.addAlumn(this.formulario.value)
+      }
+      
+      this.router.navigate(['/alumnos/list']);
     }
     else{
       this.nameControl.markAsTouched()

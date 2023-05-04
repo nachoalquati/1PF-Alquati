@@ -21,14 +21,20 @@
     <mat-drawer #drawer class="example-sidenav" mode="side">
       <mat-list role="list">
 
-        <mat-list-item role="listitem">
-          <a href="/alumnos/list">Listado de Alumnos</a>  
+        <mat-list-item role="listitem" >
+          <button mat-button [matMenuTriggerFor]="alumnosMenu">Alumnos</button> 
         </mat-list-item>
+        <mat-menu #alumnosMenu="matMenu">
+          <a mat-button href="/alumnos/list"  style="width: 100%;">Lista de Alumnos</a>  
+          <a mat-button href="/alumnos/form" style="width: 100%;">Ingresar alumno</a>  
+        </mat-menu>
+
         <mat-list-item role="listitem">
-          <a href="/alumnos/form">Ingresar alumno</a>  
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <a href="/courses/list">Cursos</a>  
+          <button mat-button [matMenuTriggerFor]="cursosMenu">Cursos</button> 
+        <mat-menu #cursosMenu="matMenu">
+          <a mat-button href="/courses/list"  style="width: 100%;">Lista de Cursos</a>  
+          <a mat-button href="/courses/form" style="width: 100%;">Ingresar Curso</a>  
+        </mat-menu>
           </mat-list-item>
       </mat-list>
     </mat-drawer>

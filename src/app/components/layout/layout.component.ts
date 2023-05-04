@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
+import { Alumno, AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
 import { DataToEditService } from 'src/app/services/dataToEdit/data-to-edit.service';
 
 export interface Alumnos {
@@ -23,7 +23,7 @@ export class LayoutComponent implements OnInit {
   query:string | null = ''
   searchString:string = ''
   searchForm: FormGroup;
-  public list:Alumnos[] = []
+  public list : Alumno[] = []
   showFiller = false;
   formVisible = false
   listVisible = true
@@ -46,13 +46,21 @@ export class LayoutComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.list = await this.alumnosList.getAlumnos()
+    this.getList()
+
+    }
 
 
-
-  }
 
   
+
+  getList(){
+    this.alumnosList.getData().subscribe({
+      next: (data=>{
+        this.list = data
+      })
+    })
+  }
 
 
   showList() : void {
@@ -75,36 +83,13 @@ export class LayoutComponent implements OnInit {
     this.editService.setAlumno(null)
   }
 
-  async handleData(data:any){
-    let array = await  this.alumnosList.getAlumnos()
-    let foundUser =  array.find(elemt=> elemt.id === data.id)
-    this.formVisible = false
-    this.listVisible = true
-
-    if (foundUser){
-      let array = await this.alumnosList.getAlumnos()
-      let newArray = array.map(elemt=>{
-        if (elemt.id === data.id){
-          return elemt = data
-        }
-      } )
-      this.alumnosList.setAlumnos(newArray)
-      let alumnoss = await this.alumnosList.getAlumnos() 
-      this.list = alumnoss
-    }
-    else{
-      this.alumnosList.addAlumno(data)
-      let alumnoss = await this.alumnosList.getAlumnos() 
-      this.list = alumnoss
-    }
-    
-  }
 
   async deleteById(incomingId:number){
     
     this.alumnosList.deleteAlumno(incomingId)
-    let alumnos = await this.alumnosList.getAlumnos()
-    this.list = alumnos
+    let alumnos = await this.alumnosList.getData()
+    this.getList()
+    this.router.navigate(['alumnos/form']);
   }
 
   editById(incomingId:number){
@@ -114,9 +99,8 @@ export class LayoutComponent implements OnInit {
   
   searchAlumno(){
     this.query = this.searchControl.value
+    this.router.navigate(['alumnos/list']);
     this.router.navigate(['/search', this.query]);
     this.showSearched()
-    console.log('searchstring en form', this.searchControl.value);
-    this.searchString = this.searchControl.value || ''
   }
 }

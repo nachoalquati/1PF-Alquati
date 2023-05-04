@@ -12,14 +12,11 @@
     <mat-form-field appearance="fill" >
         <mat-label>Elija un curso</mat-label>
         <mat-select [(value)]="selected" [formControl]="typeControl">
-          <mat-option value="React">React</mat-option>
-          <mat-option value="Angular">Angular</mat-option>
-          <mat-option value="VueJS">VueJS</mat-option>
+          <mat-option value=1>Angular</mat-option>
+          <mat-option value=2>VueJS</mat-option>
+          <mat-option value=3>React</mat-option>
         </mat-select>
       </mat-form-field>
-      
-      <pre>{{alumnos | async}}</pre>
-      
     <button mat-raised-button (click)="sendForm()">Enviar</button>
   </form>
   

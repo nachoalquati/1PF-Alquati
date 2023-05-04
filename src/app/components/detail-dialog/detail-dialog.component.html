@@ -1,0 +1,13 @@
+<div class="container-sm pt-10">
+        <h3 class="h3">Detalle de</h3>
+        <div class="row-container">
+            <p class="rows">Nombre: <b>{{alumno?.nombre}}</b></p>
+            <p class="rows">Apellido: <b>{{alumno?.apellido}}</b></p>
+            <p class="rows">Email: <b>{{alumno?.email}}</b></p>
+            <p class="rows">Curso: <b>{{curso?.nombre ? curso?.nombre : 'Sin inscripción'}}</b></p>
+            <p class="rows">Fecha de Inicio del curso: <b>{{curso?.inicio ? curso?.inicio : 'Sin inscripción'}}</b></p>
+            <p class="rows">Fecha de Finalización del curso: <b>{{curso?.finalizacion ? curso?.finalizacion : 'Sin inscripción'}}</b></p>
+            <p class="rows">Valor del curso: <b>$ {{curso?.precio ? curso?.precio : 'Sin inscripción'}}</b></p>
+        </div>
+        <button mat-button (click)="removeCourse(alumno)">Desinscribir</button>
+</div>

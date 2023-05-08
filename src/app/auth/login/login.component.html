@@ -1,0 +1,22 @@
+<form class="example-form container">
+  <h3>Inicio de sesión</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput [formControl]="emailFormControl"
+             placeholder="Ex. pat@example.com">
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Por favor ingrese el correo <strong>con el que se registró</strong>.
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        El email de ingreso es <strong>requerido</strong>.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Contraseña</mat-label>
+        <input type="password" matInput [formControl]="passwordFormControl">
+        <mat-error *ngIf="passwordFormControl.invalid" >
+            Ingrese su contraseña.
+        </mat-error>
+    </mat-form-field>
+    <button type="button" mat-button (click)="submit()">Ingresar</button>
+  </form>

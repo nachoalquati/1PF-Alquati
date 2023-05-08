@@ -66,6 +66,13 @@
       "email": "lili@example.com",
       "cursoId": 3,
       "id": 9
+    },
+    {
+      "nombre": "Juancito",
+      "apellido": "Test",
+      "email": "jtest@example.com",
+      "cursoId": 5,
+      "id": 10
     }
   ],
   "cursos": [
@@ -103,6 +110,38 @@
       "inicio": "17/5/2023",
       "finalizacion": "30/5/2023",
       "id": 5
+    }
+  ],
+  "inscripciones": [
+    {
+      "id": 1,
+      "alumnoId": 1,
+      "cursoId": 3,
+      "estado": "Pendiente"
+    },
+    {
+      "id": 2,
+      "alumnoId": 2,
+      "cursoId": 2,
+      "estado": "Rechazado"
+    },
+    {
+      "alumnoId": 3,
+      "cursoId": 4,
+      "estado": "Aprobado",
+      "id": 3
+    },
+    {
+      "alumnoId": 9,
+      "cursoId": 5,
+      "estado": "Reinscripción",
+      "id": 5
+    },
+    {
+      "alumnoId": 4,
+      "cursoId": 1,
+      "estado": "Aprobado",
+      "id": 6
     }
   ]
 }

@@ -20,6 +20,7 @@ export interface Alumnos {
 })
 
 export class LayoutComponent implements OnInit {
+  user: any | null = null
   query:string | null = ''
   searchString:string = ''
   searchForm: FormGroup;
@@ -47,7 +48,11 @@ export class LayoutComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.getList()
-
+    let a = localStorage.getItem('user')
+    if(a){
+      this.user = JSON.parse(a)
+      console.log(this.user);
+    }
     }
 
 
@@ -99,8 +104,14 @@ export class LayoutComponent implements OnInit {
   
   searchAlumno(){
     this.query = this.searchControl.value
-    this.router.navigate(['alumnos/list']);
-    this.router.navigate(['/search', this.query]);
+    this.router.navigate(['layout/search', this.query]);
     this.showSearched()
+  }
+
+  closeSession(){
+    localStorage.clear()
+    setTimeout(() => {
+      this.router.navigate(['auth','login'])
+    }, 200);
   }
 }

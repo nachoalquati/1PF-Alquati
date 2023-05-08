@@ -6,7 +6,8 @@ import { toArray, Subscription } from 'rxjs';
 import { DataToEditService } from 'src/app/services/dataToEdit/data-to-edit.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
-
+import { CoursesService } from 'src/app/services/courses/courses.service';
+import { Curso } from 'src/app/services/courses/courses.service';
 @Component({
   selector: 'app-alumno-list',
   templateUrl: './alumno-list.component.html',
@@ -21,7 +22,7 @@ export class AlumnoListComponent implements OnInit, OnChanges, OnDestroy {
 
   listadoAlumnos:Alumno[] = [];
   dataSubscription: Subscription | null = null;
-
+  courses : Curso [] = []
   displayedColumns: string[] = ['Nombre', 'Curso', 'Email','Detalle','Editar', 'Eliminar' ];
   dataSource: any[] = [];
 
@@ -29,7 +30,8 @@ export class AlumnoListComponent implements OnInit, OnChanges, OnDestroy {
     private router: Router,
     private alumnosList: AlumnosListService,
     private editService: DataToEditService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private coursesService: CoursesService
   ) {}
 
   ngOnDestroy(): void {
@@ -44,7 +46,7 @@ export class AlumnoListComponent implements OnInit, OnChanges, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+
     });
   }
 
@@ -84,8 +86,18 @@ export class AlumnoListComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
+  getCourses(){
+    this.coursesService.getCourses().subscribe({
+      next: (data)=>{
+        this.courses = data
+        
+      }
+    })
+  }
+
 
   async ngOnInit() {
+    this.getCourses()
     this.getList()
   }
 }

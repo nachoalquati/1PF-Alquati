@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CoursesFormComponent } from './courses-form/courses-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CoursesDetailDialogComponent } from './courses-detail-dialog/courses-detail-dialog.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -40,7 +41,12 @@ import { CoursesDetailDialogComponent } from './courses-detail-dialog/courses-de
     MatCardModule,
     HttpClientModule,
     MatMenuModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    RouterModule.forChild([
+      { path: 'form', component: CoursesFormComponent },
+      { path: 'list', component: ListComponent },
+      { path: 'courses/form/:id', component: CoursesFormComponent },
+    ])
   ],
 })
 export class CoursesModule { }

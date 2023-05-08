@@ -30,16 +30,44 @@ import { DetailDialogComponent } from './components/detail-dialog/detail-dialog.
 import { MatDialogModule } from '@angular/material/dialog';
 import { CoursesFormComponent } from './courses/courses-form/courses-form.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { InscripcionesListComponent } from './inscripciones/inscripciones-list/inscripciones-list.component';
+import { FormComponent } from './inscripciones/form/form.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthModule } from './auth/auth.module';
+import { AuthComponent } from './auth/auth.component';
+import { AuthGuard } from './auth/auth.guard';
+
 
 
 const routes: Routes = [
-  { path: 'alumnos/list', component: AlumnoListComponent },
-  { path: 'courses/list', component: ListComponent },
-  { path: 'courses/form/:id', component: CoursesFormComponent },
-  { path: 'courses/form', component: CoursesFormComponent },
-  { path: 'alumnos/form', component: AlumnoFormComponent },
-  { path: 'search/:query', component: SearchAlumnoComponent },
-
+  { path: '', redirectTo: '/layout/alumnos/list', pathMatch: 'full' },
+  { path: 'auth', component: AuthComponent,
+    children:[
+      {path:'login', component:LoginComponent}
+    ]
+  },
+  { path: 'layout', component:LayoutComponent,
+    canActivate:[ AuthGuard ],
+    children:[
+      { path: 'alumnos',
+      children:[
+       {path:'list' , component: AlumnoListComponent},
+       {path:'form' , component: AlumnoFormComponent},
+      ]
+     },
+     {path: 'inscripciones',
+       children:[
+         { path: 'list', component: InscripcionesListComponent },
+         { path: 'form', component: FormComponent }
+       ]
+     },
+     {path: 'courses',
+       loadChildren: () => import('././courses/courses.module').then((m)=> m.CoursesModule)
+     },
+     { path: 'search/:query', component: SearchAlumnoComponent },
+    ]
+  },
+  
 ];
 
 
@@ -51,7 +79,9 @@ const routes: Routes = [
     AlumnoListComponent,
     ApellidoPipe,
     SearchAlumnoComponent,
-    DetailDialogComponent
+    DetailDialogComponent,
+    InscripcionesListComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +105,7 @@ const routes: Routes = [
     MatDialogModule,
     MatNativeDateModule, 
     [RouterModule.forRoot(routes)],
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent],

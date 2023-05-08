@@ -19,22 +19,34 @@
 <mat-drawer-container class="example-container" autosize>
     
     <mat-drawer #drawer class="example-sidenav" mode="side">
-      <mat-list role="list">
+      <span *ngIf="user"><mat-icon>waving_hand</mat-icon>  <strong>{{user.name}} {{user.last_name}}</strong> </span>
 
+      <mat-list role="list">
         <mat-list-item role="listitem" >
-          <button mat-button [matMenuTriggerFor]="alumnosMenu">Alumnos</button> 
+          <button mat-button [matMenuTriggerFor]="alumnosMenu"><mat-icon>face</mat-icon> Alumnos</button> 
         </mat-list-item>
         <mat-menu #alumnosMenu="matMenu">
-          <a mat-button href="/alumnos/list"  style="width: 100%;">Lista de Alumnos</a>  
-          <a mat-button href="/alumnos/form" style="width: 100%;">Ingresar alumno</a>  
+          <a mat-button href="/layout/alumnos/list"  style="width: 100%;">Lista de Alumnos</a>  
+          <a mat-button href="/layout/alumnos/form" style="width: 100%;">Ingresar alumno</a>  
         </mat-menu>
 
         <mat-list-item role="listitem">
-          <button mat-button [matMenuTriggerFor]="cursosMenu">Cursos</button> 
-        <mat-menu #cursosMenu="matMenu">
-          <a mat-button href="/courses/list"  style="width: 100%;">Lista de Cursos</a>  
-          <a mat-button href="/courses/form" style="width: 100%;">Ingresar Curso</a>  
-        </mat-menu>
+            <button mat-button [matMenuTriggerFor]="cursosMenu"><mat-icon>school</mat-icon> Cursos</button> 
+          <mat-menu #cursosMenu="matMenu">
+            <a mat-button href="/layout/courses/list"  style="width: 100%;">Lista de Cursos</a>  
+            <a mat-button href="/layout/courses/form" style="width: 100%;">Ingresar Curso</a>  
+          </mat-menu>
+          </mat-list-item>
+
+        <mat-list-item role="listitem">
+            <button mat-button [matMenuTriggerFor]="inscipcionesMenu"><mat-icon>edit</mat-icon> Inscripciones</button> 
+          <mat-menu #inscipcionesMenu="matMenu">
+            <a mat-button href="/layout/inscripciones/list"  style="width: 100%;">Lista de Inscripciones</a>  
+            <a mat-button href="/layout/inscripciones/form" style="width: 100%;">Nueva Inscripción</a>  
+          </mat-menu>
+          </mat-list-item>
+        <mat-list-item role="listitem">
+            <button mat-button type="button" (click)=" closeSession()"><mat-icon>logout</mat-icon> Cerrar sesión</button> 
           </mat-list-item>
       </mat-list>
     </mat-drawer>

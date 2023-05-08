@@ -1,0 +1,21 @@
+<form [formGroup]="formulario" >
+    <div class="container">
+        <h2>Inscripción de alumnos</h2>
+        <br>
+        <mat-form-field appearance="fill" >
+            <mat-label>Elija un curso</mat-label>
+            <mat-select [(value)]="selected" [formControl]="alumnosControl">
+              <mat-option *ngFor="let alumno of alumnos" [value]="alumno.id">{{alumno.nombre}} {{alumno.apellido}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field appearance="fill" >
+            <mat-label>Elija un curso</mat-label>
+            <mat-select [(value)]="selectedCourse" [formControl]="coursesControl">
+              <mat-option *ngFor="let course of courses" [value]="course.id">{{course.nombre}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button (click)="createInscripcion()" >Enviar</button>
+    </div>
+  </form>
+  
+  

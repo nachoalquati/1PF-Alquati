@@ -5,6 +5,7 @@ import { Alumnos } from '../layout/layout.component';
 import { AlumnosListService } from 'src/app/services/alumnosList/alumnos-list.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CoursesService, Curso } from 'src/app/services/courses/courses.service';
 
 
 @Component({
@@ -17,17 +18,18 @@ export class AlumnoFormComponent implements OnInit {
   @Output()
   formEmitter = new EventEmitter<FormGroup>();
 
+  courses: Curso [] = []
   idToEdit: number | null = null
   alumnoToEdit:any = null
   formulario: FormGroup;
   favoriteSeason: string = '';
-  selected: string = ''
+  selected: number | null = null
   nameControl = new FormControl(
     '',
     [Validators.required]
     )
   typeControl = new FormControl(
-    '',
+    null,
     [Validators.required]
   )
   lastNameControl = new FormControl(
@@ -47,7 +49,8 @@ export class AlumnoFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private editService: DataToEditService,
     private alumnosList: AlumnosListService,
-    private router: Router
+    private router: Router,
+    private coursesService: CoursesService
     ) {
     this.formulario = this.formBuilder.group({
       nombre: this.nameControl ,
@@ -58,7 +61,7 @@ export class AlumnoFormComponent implements OnInit {
     );
   }
   async ngOnInit() {
-
+    this.getCourses()
     this.idToEdit = this.editService.getAlumnIdToEdit()
     if(this.idToEdit){
       this.alumnosList.getAlumnoById(this.idToEdit).subscribe(data=>{
@@ -85,7 +88,13 @@ export class AlumnoFormComponent implements OnInit {
   }
 
   
-  
+  getCourses(){
+    this.coursesService.getCourses().subscribe({
+      next: (data)=>{
+        this.courses = data
+      }
+    })
+  }
 
   
 
@@ -104,7 +113,7 @@ export class AlumnoFormComponent implements OnInit {
         this.alumnosList.addAlumn(this.formulario.value)
       }
       
-      this.router.navigate(['/alumnos/list']);
+      this.router.navigate(['/layout/alumnos/list']);
     }
     else{
       this.nameControl.markAsTouched()

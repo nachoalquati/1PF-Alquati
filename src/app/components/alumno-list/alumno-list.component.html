@@ -15,7 +15,7 @@
     <ng-container matColumnDef="Curso">
       <th mat-header-cell *matHeaderCellDef> Curso </th>
       <td mat-cell *matCellDef="let element">
-        <p *ngIf="element.cursoId">{{element.cursoId === '1' ? 'Angular': element.cursoId === '2' ? 'Vue JS': 'React'}}</p>
+        <p *ngIf="element.cursoId">{{courses[element.cursoId-1].nombre}}</p>
         <p *ngIf="!element.cursoId">Sin Inscripción</p>
         </td>
     </ng-container>
